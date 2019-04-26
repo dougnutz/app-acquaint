@@ -36,6 +36,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Acquaintance.cs" />
     <Compile Include="ObservableEntityData.cs" />
+    <Compile Include="AppDocument.cs" />
+    <Compile Include="ListItem.cs" />
+    <Compile Include="ListSeparator.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\Common\Acquaint.ModelContracts\Acquaint.ModelContracts.csproj">

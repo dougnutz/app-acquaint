@@ -3,9 +3,9 @@ using Newtonsoft.Json;
 
 namespace Acquaint.Models
 {
-	public class Acquaintance : ObservableEntityData, IAcquaintance
+    public class Acquaintance : ObservableEntityData, IAcquaintance, ListItem
     {
-		public string DataPartitionId { get; set; }
+        public string DataPartitionId { get; set; }
 
         string _FirstName;
         public string FirstName
@@ -14,9 +14,9 @@ namespace Acquaint.Models
             set
             {
                 SetProperty(ref _FirstName, value);
-				// DisplayName is dependent on FirstName
+                // DisplayName is dependent on FirstName
                 OnPropertyChanged(nameof(DisplayName));
-				// DisplayLastNameFirst is dependent on FirstName
+                // DisplayLastNameFirst is dependent on FirstName
                 OnPropertyChanged(nameof(DisplayLastNameFirst));
             }
         }
@@ -28,9 +28,9 @@ namespace Acquaint.Models
             set
             {
                 SetProperty(ref _LastName, value);
-				// DisplayName is dependent on LastName
+                // DisplayName is dependent on LastName
                 OnPropertyChanged(nameof(DisplayName));
-				// DisplayLastNameFirst is dependent on LastName
+                // DisplayLastNameFirst is dependent on LastName
                 OnPropertyChanged(nameof(DisplayLastNameFirst));
             }
         }
@@ -70,7 +70,7 @@ namespace Acquaint.Models
             set
             {
                 SetProperty(ref _Street, value);
-				// AddressString is dependent on Street
+                // AddressString is dependent on Street
                 OnPropertyChanged(nameof(AddressString));
             }
         }
@@ -82,7 +82,7 @@ namespace Acquaint.Models
             set
             {
                 SetProperty(ref _City, value);
-				// AddressString is dependent on City
+                // AddressString is dependent on City
                 OnPropertyChanged(nameof(AddressString));
             }
         }
@@ -94,9 +94,9 @@ namespace Acquaint.Models
             set
             {
                 SetProperty(ref _PostalCode, value);
-				// AddressString is dependent on PostalCode
+                // AddressString is dependent on PostalCode
                 OnPropertyChanged(nameof(AddressString));
-				// StatePostal is dependent on PostalCode
+                // StatePostal is dependent on PostalCode
                 OnPropertyChanged(nameof(StatePostal));
             }
         }
@@ -109,9 +109,9 @@ namespace Acquaint.Models
             set
             {
                 SetProperty(ref _State, value);
-				// AddressString is dependent on State
+                // AddressString is dependent on State
                 OnPropertyChanged(nameof(AddressString));
-				// StatePostal is dependent on State
+                // StatePostal is dependent on State
                 OnPropertyChanged(nameof(StatePostal));
             }
         }
@@ -123,7 +123,7 @@ namespace Acquaint.Models
             set
             {
                 SetProperty(ref _PhotoUrl, value);
-				// SmallPhotoUrl is dependent on PhotoUrl
+                // SmallPhotoUrl is dependent on PhotoUrl
                 OnPropertyChanged(nameof(SmallPhotoUrl));
             }
         }
@@ -147,7 +147,7 @@ namespace Acquaint.Models
         [JsonIgnore]
         public string StatePostal => State + " " + PostalCode;
 
-		public override string ToString() => $"{FirstName} {LastName}";
+        public override string ToString() => $"{FirstName} {LastName}";
     }
 }
 

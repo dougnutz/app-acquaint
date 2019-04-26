@@ -13,13 +13,7 @@ namespace Acquaint.XForms
 		{
 			InitializeComponent();
 
-			// on Android, we use a floating action button, so clear the ToolBarItems collection
-			if (Device.OS == TargetPlatform.Android)
-			{
-			    ToolbarItems.Remove(addAcquaintanceToolbarItem);
-
-				fab.Clicked = AndroidAddButtonClicked;
-			}
+			
 
 		    if (Device.OS != TargetPlatform.Windows)
 		    {

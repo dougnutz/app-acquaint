@@ -63,6 +63,8 @@
     <Compile Include="Pages\SetupPage.cs">
       <DependentUpon>SetupPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="IPageModel.cs" />
+    <Compile Include="ViewModels\DataDocumentTemplateSelector.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <ItemGroup>

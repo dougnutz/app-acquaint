@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.xamarin.acquaintnative" android:versionCode="151" android:versionName="1.51">
 	<uses-sdk android:minSdkVersion="17" />
 	<uses-permission android:name="android.permission.INTERNET" />

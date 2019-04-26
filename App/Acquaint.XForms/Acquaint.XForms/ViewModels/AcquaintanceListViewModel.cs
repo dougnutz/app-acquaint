@@ -11,6 +11,9 @@ using Xamarin.Forms;
 using Microsoft.AppCenter.Auth;
 using Microsoft.AppCenter.Crashes;
 using Microsoft.AppCenter.Analytics;
+using System;
+using System.Collections.Generic;
+using Acquaint.XForms;
 
 namespace Acquaint.XForms
 {
@@ -36,6 +39,16 @@ namespace Acquaint.XForms
 
         ObservableRangeCollection<Acquaintance> _Acquaintances;
 
+        ObservableRangeCollection<ListItem> _AcquaintancesTest { get {
+                ObservableRangeCollection<ListItem> list = new ObservableRangeCollection<ListItem>();
+                       list.Add(new ListSeparator("App document"));
+                       list.Add((Acquaint.Models.ListItem) new AppDocument());
+                       list.Add(new ListSeparator("User document"));
+                       list.Add(new Acquaintance() { DataPartitionId = "", FirstName = "Joseph", LastName = "Grimes", Company = "GG Mechanical", JobTitle = "Vice President", Email = "jgrimes@ggmechanical.com", Phone = "414-367-4348", Street = "2030 Judah St", City = "San Francisco", PostalCode = "94144", State = "CA", PhotoUrl = "https://acquaint.blob.core.windows.net/images/josephgrimes.jpg" });
+                       list.Add(new Acquaintance() { DataPartitionId = "", FirstName = "Monica", LastName = "Green", Company = "Calcom Logistics", JobTitle = "Director", Email = "mgreen@calcomlogistics.com", Phone = "925-353-8029", Street = "230 3rd Ave", City = "San Francisco", PostalCode = "94118", State = "CA", PhotoUrl = "https://acquaint.blob.core.windows.net/images/monicagreen.jpg" });
+                return list;
+            } }
+
         Command _LoadAcquaintancesCommand;
 
         Command _RefreshAcquaintancesCommand;
@@ -54,7 +67,7 @@ namespace Acquaint.XForms
 
         public ObservableRangeCollection<Acquaintance> Acquaintances
         {
-            get { return _Acquaintances ?? (_Acquaintances = new ObservableRangeCollection<Acquaintance>()); }
+            get { return _Acquaintances ?? (_Acquaintances = new ObservableRangeCollection<Acquaintance>());}
             set
             {
                 _Acquaintances = value;
@@ -74,7 +87,7 @@ namespace Acquaint.XForms
         {
             LoadAcquaintancesCommand.ChangeCanExecute();
 
-			// set the data source on each load, because we don't know if the data source may have been updated between page loads
+			// set the data source on each load, becaus+e we don't know if the data source may have been updated between page loads
 			SetDataSource();
 
             if (Settings.LocalDataResetIsRequested)
@@ -373,6 +386,39 @@ namespace Acquaint.XForms
                 IsBusy = false;
             });
         }
+
+        Command _DeleteAcquaintanceCommand;
+
+        public Command DeleteAcquaintanceCommand => _DeleteAcquaintanceCommand ?? (_DeleteAcquaintanceCommand = new Command(ExecuteDeleteAcquaintanceCommand));
+
+        void ExecuteDeleteAcquaintanceCommand()
+        {
+            MessagingService.Current.SendMessage<MessagingServiceQuestion>(MessageKeys.DisplayQuestion, new MessagingServiceQuestion()
+            {
+                //Title = string.Format("Delete {0}?", Acquaintance.DisplayName),
+                Question = null,
+                Positive = "Delete",
+                Negative = "Cancel",
+                OnCompleted = new Action<bool>(async result => {
+                    if (!result) return;
+                        SubscribeToDeleteAcquaintanceMessages();
+                    await PopAsync();
+                })
+            });
+        }
+
+        //private ObservableRangeCollection<ListItem> LoadDataList()
+        //{
+        //    ObservableRangeCollection<ListItem> list = new ObservableRangeCollection<ListItem>();
+        //    //List<ListItem> list = new List<ListItem>();
+        //    //list.Add(new ListSeparator("App document"));
+        //    //list.Add((Acquaint.Models.ListItem) new AppDocument());
+        //    //list.Add(new ListSeparator("User document"));
+        //    //list.Add(new Acquaintance() { DataPartitionId = "", FirstName = "Joseph", LastName = "Grimes", Company = "GG Mechanical", JobTitle = "Vice President", Email = "jgrimes@ggmechanical.com", Phone = "414-367-4348", Street = "2030 Judah St", City = "San Francisco", PostalCode = "94144", State = "CA", PhotoUrl = "https://acquaint.blob.core.windows.net/images/josephgrimes.jpg" });
+        //    //list.Add(new Acquaintance() { DataPartitionId = "", FirstName = "Monica", LastName = "Green", Company = "Calcom Logistics", JobTitle = "Director", Email = "mgreen@calcomlogistics.com", Phone = "925-353-8029", Street = "230 3rd Ave", City = "San Francisco", PostalCode = "94118", State = "CA", PhotoUrl = "https://acquaint.blob.core.windows.net/images/monicagreen.jpg" });
+        //    return list;
+
+        //}
     }
 }
 
